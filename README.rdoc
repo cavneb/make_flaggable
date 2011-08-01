@@ -68,7 +68,7 @@ migrate the database
   article.flagged_by?(user, :flag_name)
 
   # Returns true if the article was flagged by any flagger at all, false otherwise.
-  article.flagged(:flag_name)?
+  article.flagged?(:flag_name)
 
   # Flaggings can also be accessed by its flagger.
   flagger.flaggings or flagger.flaggings(:flag_name)
