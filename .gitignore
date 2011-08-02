@@ -5,3 +5,4 @@ doc/*
 *.log
 *.sqlite3
 .bundle
+.rvmrc
