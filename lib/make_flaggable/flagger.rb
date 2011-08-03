@@ -56,6 +56,13 @@ module MakeFlaggable
       success
     end
 
+    # Toggles the state of a given flag on a flaggable object
+    # and returns the new flag state
+    def toggle_flag(flaggable, flag)
+      flagged?(flaggable, flag) ? unflag(flaggable, flag) : flag(flaggable, flag)
+      flagged?(flaggable, flag)
+    end
+
     def flagged?(flaggable, flag)
       check_flaggable(flaggable, flag)
       fetch_flaggings(flaggable, flag).try(:first) ? true : false

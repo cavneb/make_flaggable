@@ -51,6 +51,11 @@ migrate the database
   # the flaggable.
   user.unflag(article, :flag_name)
 
+  # The user can also easily toggle the state of a flag: subsquent calls to toggle_flag will flag/unflag it:
+  user.toggle_flag(article, :flag_name) # returns true as the flag has been set
+  user.toggle_flag(article, :flag_name) # returns false as the flag has now been removed
+  user.toggle_flag(article, :flag_name) # flag set again
+
   # Get all flaggings of a flaggable.
   article.flaggings
 

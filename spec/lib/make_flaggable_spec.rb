@@ -24,7 +24,7 @@ describe "Make Flaggable" do
     @flagger.flag!(@flaggable, :inappropriate)
     @flagger.flaggings.reload.length.should == 1
   end
-  
+
   it "should have flaggings by flag name" do
     @flagger.flag!(@flaggable, :inappropriate)
     @flagger.flag!(@flaggable, :favorite)
@@ -97,6 +97,31 @@ describe "Make Flaggable" do
         lambda {
           @flagger.unflag(@flaggable, :favorite).should == false
         }.should_not raise_error(MakeFlaggable::Exceptions::NotFlaggedError)
+      end
+    end
+
+    describe "toggle_flag" do
+      it "should add a flag when none exists" do
+        @flaggable.flaggings.length.should == 0
+        @flagger.toggle_flag(@flaggable, :inappropriate)
+        @flaggable.flaggings.reload.length.should == 1
+      end
+
+      it "should remove an existing flag" do
+        @flagger.flag!(@flaggable, :inappropriate)
+        @flaggable.flaggings.length.should == 1
+        @flagger.toggle_flag(@flaggable, :inappropriate)
+        @flaggable.flaggings.reload.length.should == 0
+      end
+
+      it "should return the new flagging state" do
+        @flagger.flagged?(@flaggable, :inappropriate).should == false
+
+        @flagger.toggle_flag(@flaggable, :inappropriate).should  == true
+        @flagger.flagged?(@flaggable, :inappropriate).should     == true
+
+        @flagger.toggle_flag(@flaggable, :inappropriate).should  == false
+        @flagger.flagged?(@flaggable, :inappropriate).should     == false
       end
     end
 
