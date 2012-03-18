@@ -61,7 +61,7 @@ migrate the database
 
   # Get the flagging with a specified flag.
   article.flaggings.with_flag(:flag_name)
-  
+
   # Get the flagger of the flagging.
   flagging = article.flaggings.with_flag(:flag_name).first
   user = flagging.flagger
@@ -77,6 +77,12 @@ migrate the database
 
   # Flaggings can also be accessed by its flagger.
   flagger.flaggings or flagger.flaggings.with_flag(:flag_name)
+
+  # Get the available flags for a flaggable
+  article.available_flags
+
+  # Get the available flags for a flaggable class
+  Article.available_flags
 
 == Testing
 

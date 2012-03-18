@@ -21,7 +21,11 @@ module MakeFlaggable
   # end
   def make_flaggable(*flags)
     raise MakeFlaggable::Exceptions::MissingFlagsError.new if flags.empty?
-    define_method(:available_flags) { flags.map(&:to_sym) }
+    @flags = flags.map!(&:to_sym)
+    # Add available_flags as an instance method
+    define_method(:available_flags) { flags }
+    # Add available_flags as a class method
+    instance_eval { def available_flags; @flags; end }
     include Flaggable
   end
 
