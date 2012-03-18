@@ -76,7 +76,7 @@ migrate the database
   article.flagged?(:flag_name)
 
   # Flaggings can also be accessed by its flagger.
-  flagger.flaggings or flagger.flaggings.with_flag(:flag_name)
+  flagger.flaggings or flagger.flaggings.with_flag(:flag_name) or flagger.flaggings.with_flaggable(:flaggable)
 
   # Get the available flags for a flaggable
   article.available_flags
