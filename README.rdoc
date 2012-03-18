@@ -69,6 +69,10 @@ migrate the database
   # Returns true if the flagger flagged the flaggable, false otherwise.
   user.flagged?(article, :flag_name)
 
+  # Returns true if the flagger flagged the flaggable with any flag, false otherwise.
+  # A more concise version of user.flaggings.with_flaggable(article)
+  user.flagged?(article)
+
   # Return true if the flaggable was flagged by the flagger, false otherwise.
   article.flagged_by?(user, :flag_name)
 

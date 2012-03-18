@@ -142,6 +142,14 @@ describe "Make Flaggable" do
         @flagger.unflag!(@flaggable, :favorite)
         @flagger.flagged?(@flaggable, :favorite).should == false
       end
+
+      it "should check if flagger has flagged the flaggable with any flag" do
+        @flagger.flagged?(@flaggable).should == false
+        @flagger.flag!(@flaggable, :favorite)
+        @flagger.flagged?(@flaggable).should == true
+        @flagger.unflag!(@flaggable, :favorite)
+        @flagger.flagged?(@flaggable).should == false
+      end
     end
   end
 
