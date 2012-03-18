@@ -4,6 +4,7 @@ require 'logger'
 require 'rspec'
 require 'active_record'
 require 'database_cleaner'
+require 'support/be_accessible_matcher'
 
 $LOAD_PATH.unshift(File.dirname(__FILE__) + '/../lib')
 require 'make_flaggable'
