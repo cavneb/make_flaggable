@@ -68,6 +68,16 @@ module MakeFlaggable
       fetch_flaggings(flaggable, flag).try(:first) ? true : false
     end
 
+    # Returns the most recently created flag
+    def find_last_flag_for(flaggable, flag=nil)
+      find_all_flags_for(flaggable, flag).first
+    end
+
+    # Returns all flags created by the user for a given flag
+    def find_all_flags_for(flaggable, flag=nil)
+      fetch_flaggings(flaggable, flag).order('created_at desc')
+    end
+
     private
 
     def fetch_flaggings(flaggable, flag)

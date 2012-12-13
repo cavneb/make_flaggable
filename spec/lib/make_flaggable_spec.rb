@@ -151,6 +151,39 @@ describe "Make Flaggable" do
         @flagger.flagged?(@flaggable).should == false
       end
     end
+
+    describe "find_last_flag_for" do
+      it "should fetch the most recent flag the flagger has made on the flaggable" do
+        @flagger.flagged?(@flaggable, :favorite).should == false
+        @flagger.flagged?(@flaggable, :inappropriate).should == false
+        @flagger.flag!(@flaggable, :favorite)
+        @flagger.flag!(@flaggable, :inappropriate)
+        @flagger.find_last_flag_for(@flaggable).flag.should == "inappropriate"
+      end
+
+      it "should return nil when the flagger has made no flags on the flaggable" do
+        @flagger.flagged?(@flaggable).should == false
+
+        @flagger.find_last_flag_for(@flagger).should == nil
+      end
+    end
+
+    describe "find_all_flags_for" do
+      it "should fetch all flags the flagger has made on the flaggable" do
+        @flagger.flagged?(@flaggable, :favorite).should == false
+        @flagger.flagged?(@flaggable, :inappropriate).should == false
+        @flagger.flag!(@flaggable, :favorite)
+        @flagger.flag!(@flaggable, :inappropriate)
+        flag_types = @flagger.find_all_flags_for(@flaggable).map(&:flag)
+        flag_types.should include("inappropriate")
+        flag_types.should include("favorite")
+      end
+
+      it "should return an empty ActiveRecord relation when the flagger has made no flags on the flaggable" do
+        @flagger.flagged?(@flaggable).should == false
+        @flagger.find_all_flags_for(@flaggable).should == []
+      end
+    end
   end
 
   describe "flaggable" do
