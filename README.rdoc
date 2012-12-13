@@ -88,6 +88,26 @@ migrate the database
   # Get the available flags for a flaggable class
   Article.available_flags
 
+  # Get the last Flagging made on an article (Flaggable) by a user (Flagger)
+  #   Format:
+  #     # of any type
+  #     flagger.find_last_flag_for(flaggable)
+  user.find_last_flag_for(article)
+
+  #     # of a specific type
+  #     flagger.find_last_flag_for(flaggable, flag)
+  user.find_last_flag_for(article, :inappropriate)
+
+  # Get all Flaggings made on an article (Flaggable) by a user (Flagger)
+  #   Format:
+  #     # of any type
+  #     flagger.find_all_flags_for(flaggable)
+  user.find_all_flags_for(article)
+
+  #     # of a specific type
+  #     flagger.find_all_flags_for(flaggable, flag)
+  user.find_all_flags_for(article, :spam)
+
 == Testing
 
 MakeFlaggable uses RSpec for testing and has a rake task for executing the provided specs
